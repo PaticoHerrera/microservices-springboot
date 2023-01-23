@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: "demo.microservices.addresses"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    metadataMap:
+      appOwner: Mi Curso
+      descripcion: Ejemplo de Customer Service
