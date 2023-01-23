@@ -6,18 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class CustomerDto {
-
-	private UUID id;
-	@NonNull
-	private String name;
-	private String lastname;
-	private String address;
+public class AddressDto {
 	
+	private UUID id;
+	private String direccion;
+	private String ciudad;
+	private UUID customerId;
 }
