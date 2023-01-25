@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductServiceImpl implements ProductService {
 
 	@Override
-	public ProductDto getProductById(UUID customerId) {
+	public ProductDto getProductById(UUID productId) {
 		// Acá incluir la lógica de BD
 		
 		// Mock
 		return ProductDto.builder()
-				.id(customerId)
+				.id(productId)
 				.productName("Cervezas")
 				.price(new BigDecimal(25))
 				.quantity(100)
@@ -39,9 +39,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void updateProduct(UUID customerId, ProductDto productDto) {
+	public ProductDto updateProduct(UUID customerId, ProductDto productDto) {
 		log.info("Actualizamos información de: "+ productDto.getProductName());
-
+		return ProductDto.builder()
+				.id(productDto.getId())
+				.productName(productDto.getProductName())
+				.price(productDto.getPrice())
+				.quantity(productDto.getQuantity())
+				.build();
 	}
 
 	@Override
