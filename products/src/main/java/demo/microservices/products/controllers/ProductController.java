@@ -19,7 +19,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import demo.microservices.products.models.ProductDto;
 import demo.microservices.products.services.ProductService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/product")
 public class ProductController {
@@ -46,7 +48,8 @@ public class ProductController {
 				.toUriString();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", baseUrl + "/api/v1/product/" + savedDto.getId().toString());
-		return new ResponseEntity(savedDto, HttpStatus.CREATED);
+		
+		return new ResponseEntity(savedDto, headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{productId}")

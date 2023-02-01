@@ -55,7 +55,7 @@ public class CustomerController {
 				.toUriString();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", baseUrl + "/api/v1/customer/" + savedDto.getId().toString());
-		return new ResponseEntity(savedDto, HttpStatus.CREATED);
+		return new ResponseEntity(savedDto, headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{customerId}")

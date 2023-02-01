@@ -34,9 +34,14 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void updateCustomer(UUID customerId, CustomerDto customerDto) {
-		// TODO Auto-generated method stub
+	public CustomerDto updateCustomer(UUID customerId, CustomerDto customerDto) {
 		log.info("Actualizando customer" + customerDto.getName());
+		return CustomerDto.builder()
+				.id(customerDto.getId())
+				.name(customerDto.getName())
+				.lastname(customerDto.getLastname())
+				.address(customerDto.getAddress())
+				.build();
 
 	}
 
