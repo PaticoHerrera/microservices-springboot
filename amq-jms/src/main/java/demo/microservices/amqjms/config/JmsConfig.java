@@ -9,6 +9,7 @@ import org.springframework.jms.support.converter.MessageType;
 public class JmsConfig {
 	
 	public final static String HOLA_COLA = "hola-mundo";
+	public final static String SND_RCV_COLA = "replay-back";
 
 	/**
 	 * Configuración que nos permitirá convertir los mensajes a formato JSON
