@@ -22,49 +22,52 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HolaSender {
 	
+	// preconfigurado que usamos para comunicarnos con el mq
 	private final JmsTemplate jmsTemplate;
 	private final ObjectMapper objectMapper;
-
-	/**
-	 * Rutina para enviar un mensaje a la cola de MQ
-	 */
-	@Scheduled(fixedRate = 5000)
+	
+	@Scheduled(fixedRate = 4000)
 	public void sendMessage() {
 		/*
-		HolaMundoMessage mensaje = HolaMundoMessage
+		HolaMundoMessage message = HolaMundoMessage
 				.builder()
 				.id(UUID.randomUUID())
-				.message("Hola Mundo!!")
+				.message("Hola Mundo!")
 				.build();
-				
-		jmsTemplate.convertAndSend(JmsConfig.HOLA_COLA, mensaje);
+		jmsTemplate.convertAndSend(JmsConfig.MY_QUEUE, message);
 		*/
 	}
-	
-	@Scheduled(fixedRate = 3000)
+
+	@Scheduled(fixedRate =4000)
 	public void sendAndReceiveMessage() throws JMSException {
-		HolaMundoMessage datos = HolaMundoMessage
+		
+		HolaMundoMessage payloadMessage = HolaMundoMessage
 				.builder()
 				.id(UUID.randomUUID())
-				.message("Hola a todos!!")
+				.message("Hola!")
 				.build();
 		
-		Message receivedMsj = jmsTemplate.sendAndReceive(JmsConfig.SND_RCV_COLA, new MessageCreator() {			
+		Message receivedMsj = jmsTemplate.sendAndReceive(JmsConfig.SND_RCV_COLA, new MessageCreator() {
+			
 			@Override
 			public Message createMessage(Session session) throws JMSException {
 				Message message = null;
 				try {
-					message = session.createTextMessage(objectMapper.writeValueAsString(datos));
-					message.setStringProperty("_type","demo.microservices.amqjms.models.HolaMundoMessage");
+					message = session.createTextMessage(objectMapper.writeValueAsString(payloadMessage));
+					message.setStringProperty("_type", "demo.microservices.amqjms.models.HolaMundoMessage");
+					System.out.println("Sending message...");
 					return message;
 				} catch (JsonProcessingException | JMSException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 					throw new JMSException("JMS Error");
-				}
+				}				
 			}
 		});
 		
-		System.out.println("=====> " + receivedMsj.getBody(String.class));
+		System.out.println("======> " + receivedMsj.getBody(String.class));
+		
 		
 	}
+	
 }

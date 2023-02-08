@@ -16,8 +16,9 @@ public class AmqJmsApplication {
 				.setPersistenceEnabled(false)
 				.setJournalDirectory("target/data/journal")
 				.setSecurityEnabled(false)
-				.addAcceptorConfiguration("invm", "vm://localhost")
+				//.addAcceptorConfiguration("invm", "vm://localhost")
 				);
+		server.start();
 		
 		SpringApplication.run(AmqJmsApplication.class, args);
 	}
